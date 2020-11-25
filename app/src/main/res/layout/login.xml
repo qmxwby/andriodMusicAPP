@@ -52,7 +52,7 @@
         android:layout_height="50dp"
         android:layout_below="@id/password"
         android:layout_margin="15dp"
-        android:background="@drawable/shape"
+        android:background="@drawable/shape_register"
         android:backgroundTint="@color/colorRed"
         android:text="登录"
         android:textColor="#FFFFFF"
