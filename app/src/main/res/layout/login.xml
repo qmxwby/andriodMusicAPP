@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/login_top"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:id="@+id/login_back"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/login_back"
+            android:text="立即登录"
+            android:textColor="#000000"
+            android:textSize="25sp"/>
+
+    </RelativeLayout>
+    <EditText
+        android:id="@+id/phonenum"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:hint="请输入手机号"
+        android:textSize="20sp"
+        android:layout_margin="12dp"
+        android:layout_below="@id/login_top"/>
+    <EditText
+    android:id="@+id/password"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:hint="请输入密码"
+    android:textSize="20sp"
+    android:layout_margin="12dp"
+    android:layout_below="@id/phonenum"
+    />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/password"
+        android:layout_margin="15dp"
+        android:background="@drawable/shape"
+        android:backgroundTint="@color/colorRed"
+        android:text="登录"
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"/>
+
+
+
+</RelativeLayout>
