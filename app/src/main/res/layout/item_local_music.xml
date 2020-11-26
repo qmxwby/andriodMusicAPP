@@ -7,10 +7,10 @@
     android:layout_marginRight="10dp"
     android:layout_marginTop="10dp"
     android:layout_marginLeft="10dp"
-    app:contentPadding="10dp"
+    app:contentPadding="5dp"
     app:cardCornerRadius="10dp"
-    app:cardElevation="1dp"
-    app:cardBackgroundColor="@color/colorPink">
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="#33ffffff">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -62,6 +62,15 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:textSize="14sp"/>
+        <ImageView
+            android:id="@+id/item_local_more"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="13dp"
+            android:src="@mipmap/more"
+            android:layout_above="@id/item_local_music_durtion">
+        </ImageView>
         <TextView
             android:id="@+id/item_local_music_durtion"
             android:layout_width="wrap_content"

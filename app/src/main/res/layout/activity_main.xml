@@ -32,7 +32,7 @@
         />
     <Button
         android:id="@+id/experience"
-        android:text="立即登录"
+        android:text="立即体验"
         android:textSize="18sp"
         android:textColor="#ffffff"
         android:layout_height="wrap_content"

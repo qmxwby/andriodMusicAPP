@@ -3,21 +3,70 @@ package com.example.musicapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.musicapplication.base.MPermissionsActivity;
 
-public class MainActivity extends MPermissionsActivity {
+public class MainActivity extends MPermissionsActivity implements View.OnClickListener {
 
+    ImageView wechatIv, qqIv, weiboIv, wangyiIv;
+    Button registerBtn, experienceBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //请求读写权限
         requestPermission(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
+        //完成页面初始化
+        initView();
     }
 
+    private void initView() {
+        wechatIv = findViewById(R.id.wechat_icon);
+        qqIv = findViewById(R.id.qq_icon);
+        weiboIv = findViewById(R.id.weibo_icon);
+        wangyiIv = findViewById(R.id.wangyi_icon);
+        registerBtn = findViewById(R.id.register);
+        experienceBtn = findViewById(R.id.experience);
+
+        wechatIv.setOnClickListener(this);
+        qqIv.setOnClickListener(this);
+        weiboIv.setOnClickListener(this);
+        wangyiIv.setOnClickListener(this);
+        experienceBtn.setOnClickListener(this);
+    }
+
+
+
+
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent();
+        switch (view.getId()) {
+            case R.id.wechat_icon:
+                Toast.makeText(this,"程序员哥哥正在加班完善该功能中~，稍安勿躁",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.qq_icon:
+                Toast.makeText(this,"程序员哥哥正在加班完善该功能中~，稍安勿躁",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.weibo_icon:
+                Toast.makeText(this,"程序员哥哥正在加班完善该功能中~，稍安勿躁",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.wangyi_icon:
+                Toast.makeText(this,"程序员哥哥正在加班完善该功能中~，稍安勿躁",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.experience:
+                intent.setClass(this, MusicMainActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
 
     /**
      * 权限获取成功
@@ -58,4 +107,5 @@ public class MainActivity extends MPermissionsActivity {
                 break;
         }
     }
+
 }
