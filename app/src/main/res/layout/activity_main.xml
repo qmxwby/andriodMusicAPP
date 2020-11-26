@@ -28,12 +28,12 @@
         android:layout_below="@id/main_enter_toplayout"
         android:layout_marginTop="100dp"
         android:textColor="#DC2C1F"
-        android:textSize="20sp"
+        android:textSize="18sp"
         />
     <Button
         android:id="@+id/experience"
         android:text="立即登录"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="#ffffff"
         android:layout_height="wrap_content"
         android:layout_width="300dp"
@@ -75,7 +75,7 @@
             android:padding="10dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@mipmap/QQ"
+            android:src="@mipmap/qq_icon"
             android:layout_centerVertical="true"
             android:background="@drawable/shape_enter_icon"
             android:layout_toLeftOf="@id/weibo_icon"
