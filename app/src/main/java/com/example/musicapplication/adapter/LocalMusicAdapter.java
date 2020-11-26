@@ -17,6 +17,16 @@ import java.util.List;
 public class LocalMusicAdapter extends RecyclerView.Adapter<LocalMusicAdapter.LocalMusicViewHolder> {
     Context context;
     List<LocalMusicBean> mDatas;
+    OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    //添加绑定事件接口回调
+    public interface OnItemClickListener{
+        public void OnItemClick(View view, int position);
+    }
 
     public LocalMusicAdapter(Context context,List<LocalMusicBean> mDatas){
         this.context = context;
@@ -32,7 +42,7 @@ public class LocalMusicAdapter extends RecyclerView.Adapter<LocalMusicAdapter.Lo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LocalMusicViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull LocalMusicViewHolder holder, final int position) {
         LocalMusicBean musicBean = mDatas.get(position);
         holder.idTv.setText(musicBean.getId());
         holder.songTv.setText(musicBean.getSong());
@@ -40,6 +50,13 @@ public class LocalMusicAdapter extends RecyclerView.Adapter<LocalMusicAdapter.Lo
         holder.albumTv.setText(musicBean.getAlbum());
         holder.timeTv.setText(musicBean.getDuration());
 
+        //添加每一个item点击事件，使其能够点击播放
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemClickListener.OnItemClick(view, position);
+            }
+        });
     }
 
     @Override

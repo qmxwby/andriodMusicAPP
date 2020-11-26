@@ -25,7 +25,7 @@
             android:id="@+id/local_music_bottom_tv_song"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="断桥残雪"
+            android:text=""
             android:layout_toRightOf="@id/local_music__bottom_iv_icon"
             android:layout_marginTop="12dp"
             android:layout_marginLeft="10dp"
@@ -36,7 +36,7 @@
             android:id="@+id/local_music_bottom_tv_singer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="许嵩"
+            android:text=""
             android:textSize="14sp"
             android:layout_below="@id/local_music_bottom_tv_song"
             android:layout_alignLeft="@id/local_music_bottom_tv_song"
@@ -65,15 +65,12 @@
             android:layout_toLeftOf="@id/local_music__bottom_iv_play"
             />
     </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/local_music_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/local_music_bottomlayout">
     </androidx.recyclerview.widget.RecyclerView>
-
-
-
-
 
 </RelativeLayout>
