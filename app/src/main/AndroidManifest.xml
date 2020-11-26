@@ -12,8 +12,9 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MusicMainActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".avtivity.MusicMainActivity"></activity>
+        <activity android:name=".avtivity.RegisterActivity"></activity>
+        <activity android:name=".avtivity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

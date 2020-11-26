@@ -1,4 +1,4 @@
-package com.example.musicapplication;
+package com.example.musicapplication.bean;
 
 public class LocalMusicBean {
     private String id;

@@ -1,6 +1,4 @@
-package com.example.musicapplication;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.musicapplication.avtivity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -10,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.musicapplication.R;
 import com.example.musicapplication.base.MPermissionsActivity;
 
 public class MainActivity extends MPermissionsActivity implements View.OnClickListener {
@@ -38,6 +37,7 @@ public class MainActivity extends MPermissionsActivity implements View.OnClickLi
         qqIv.setOnClickListener(this);
         weiboIv.setOnClickListener(this);
         wangyiIv.setOnClickListener(this);
+        registerBtn.setOnClickListener(this);
         experienceBtn.setOnClickListener(this);
     }
 
@@ -63,6 +63,10 @@ public class MainActivity extends MPermissionsActivity implements View.OnClickLi
                 break;
             case R.id.experience:
                 intent.setClass(this, MusicMainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.register:
+                intent.setClass(this, RegisterActivity.class);
                 startActivity(intent);
                 break;
         }

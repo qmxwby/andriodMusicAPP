@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".avtivity.MainActivity">
 
     <RelativeLayout
         android:id="@+id/register_top"
@@ -31,7 +31,7 @@
     <EditText
         android:id="@+id/phonenum"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:hint="请输入手机号"
         android:textSize="20sp"
         android:layout_margin="12dp"
@@ -39,7 +39,7 @@
     <EditText
     android:id="@+id/password1"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="60dp"
     android:hint="请输入密码"
     android:textSize="20sp"
     android:layout_margin="12dp"
@@ -48,7 +48,7 @@
     <EditText
         android:id="@+id/password2"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:hint="请再次输入密码"
         android:textSize="20sp"
         android:layout_margin="12dp"
@@ -60,20 +60,8 @@
         android:layout_height="50dp"
         android:layout_below="@id/password2"
         android:layout_margin="15dp"
-        android:background="@drawable/shape_register"
-        android:backgroundTint="@color/colorRed"
-        android:text="完成"
-        android:textColor="#FFFFFF"
-        android:textSize="24dp"/>
-    <Button
-        android:id="@+id/register_login"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/register_over"
-        android:layout_margin="15dp"
-        android:background="@drawable/shape_register"
-        android:backgroundTint="@color/colorRed"
-        android:text="登录"
+        android:background="@drawable/shape_login"
+        android:text="一键登录"
         android:textColor="#FFFFFF"
         android:textSize="24dp"/>
 

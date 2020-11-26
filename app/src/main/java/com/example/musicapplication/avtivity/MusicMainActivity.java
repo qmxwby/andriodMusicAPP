@@ -1,10 +1,9 @@
-package com.example.musicapplication;
+package com.example.musicapplication.avtivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -13,11 +12,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 import android.os.Bundle;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.musicapplication.base.MPermissionsActivity;
+import com.example.musicapplication.adapter.LocalMusicAdapter;
+import com.example.musicapplication.bean.LocalMusicBean;
+import com.example.musicapplication.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
