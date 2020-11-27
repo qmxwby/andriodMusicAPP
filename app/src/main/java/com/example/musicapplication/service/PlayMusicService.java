@@ -19,7 +19,7 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
     public int currentPosition = -1; //记录当前音乐的播放位置
     public int currentPausePosition = 0; //记录当前音乐暂停时候的位置
     private MediaPlayer mediaPlayer; //音乐播放器对象
-    public Boolean isPlaying; //当前音乐是否播放
+    public Boolean isPlaying = false; //当前音乐是否播放
 
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {

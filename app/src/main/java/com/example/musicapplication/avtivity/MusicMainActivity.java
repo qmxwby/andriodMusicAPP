@@ -43,8 +43,7 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
     //数据源
     ArrayList<LocalMusicBean> mDatas;
     private LocalMusicAdapter adapter;
-    //记录当前音乐暂停进度条
-    private int currentMusicPausePosition = 0;
+
     //播放服务对象
     PlayMusicService playMusicService;
     //是否绑定服务
@@ -61,6 +60,7 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
         //设置布局管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         musicRv.setLayoutManager(layoutManager);
+        //绑定服务
         loadLocalMusicData();
         //设置每一项的点击事件
         setEventListener();
@@ -84,11 +84,19 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
 
     //根据当前位置修改歌曲名称和歌手名称
     public void clickChange(){
+        if (playMusicService.currentPosition == -1) return;
         //获取当前位置的对象
         LocalMusicBean musicBean = mDatas.get(playMusicService.currentPosition);
         //设置底部显示点击的歌曲和歌手名称
         songTv.setText(musicBean.getSong());
         singerTv.setText(musicBean.getSinger());
+
+        //如果正在播放，则为暂停图标
+        if (playMusicService.isPlaying) {
+            setPauseicon();
+        } else {
+            setPlayicon();
+        }
     }
 
     //加载本地数据源
@@ -182,6 +190,7 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
         PlayMusicService.MusicBinder musicBinder = (PlayMusicService.MusicBinder) iBinder;
         //获取service对象
         playMusicService = musicBinder.getService();
+        clickChange();
     }
 
     @Override
