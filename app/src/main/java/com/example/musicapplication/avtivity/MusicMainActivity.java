@@ -133,7 +133,7 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.local_music__bottom_iv_last:
-                if (playMusicService.currentPosition == 0) playMusicService.currentPosition = mDatas.size()-1;
+                if (playMusicService.currentPosition <= 0) playMusicService.currentPosition = mDatas.size()-1;
                 else playMusicService.currentPosition--;
                 clickChange();
                 playMusicService.playMusicInPosition(playMusicService.currentPosition);

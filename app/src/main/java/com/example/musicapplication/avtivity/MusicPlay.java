@@ -128,7 +128,7 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.local_music__bottom_iv_last2:
-                if (playMusicService.currentPosition == 0) playMusicService.currentPosition = playMusicService.musicList.size()-1;
+                if (playMusicService.currentPosition <= 0) playMusicService.currentPosition = playMusicService.musicList.size()-1;
                 else playMusicService.currentPosition--;
                 setSong();
                 playMusicService.playMusicInPosition(playMusicService.currentPosition);
