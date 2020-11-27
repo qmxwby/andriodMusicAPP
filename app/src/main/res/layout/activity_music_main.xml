@@ -18,33 +18,42 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/erji"
             android:background="@null"
-            android:layout_marginLeft="20dp"
             android:padding="10dp"
+            android:layout_marginLeft="7dp"
             android:id="@+id/local_music__bottom_iv_icon" />
-        <TextView
-            android:id="@+id/local_music_bottom_tv_song"
+        <RelativeLayout
+            android:id="@+id/songandsinger"
+            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            android:layout_toRightOf="@id/local_music__bottom_iv_icon"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="10dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            />
-        <TextView
-            android:id="@+id/local_music_bottom_tv_singer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="14sp"
-            android:layout_below="@id/local_music_bottom_tv_song"
-            android:layout_alignLeft="@id/local_music_bottom_tv_song"
-            android:layout_marginTop="6dp"/>
+            android:layout_toRightOf="@+id/local_music__bottom_iv_icon"
+            android:layout_toLeftOf="@id/local_music__bottom_iv_last">
+            <TextView
+                android:id="@+id/local_music_bottom_tv_song"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text=""
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/local_music_bottom_tv_singer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text=""
+                android:textSize="14sp"
+                android:layout_below="@id/local_music_bottom_tv_song"
+                android:layout_alignLeft="@id/local_music_bottom_tv_song"
+                android:layout_marginTop="6dp"/>
+        </RelativeLayout>
         <ImageView
             android:id="@+id/local_music__bottom_iv_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
             android:layout_centerVertical="true"
             android:src="@mipmap/icon_next"
             android:layout_alignParentRight="true" />
@@ -58,8 +67,8 @@
             />
         <ImageView
             android:id="@+id/local_music__bottom_iv_last"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
             android:layout_centerVertical="true"
             android:src="@mipmap/icon_last"
             android:layout_toLeftOf="@id/local_music__bottom_iv_play"

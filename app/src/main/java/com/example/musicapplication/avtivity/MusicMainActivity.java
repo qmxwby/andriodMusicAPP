@@ -6,11 +6,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Service;
+import android.content.ComponentName;
 import android.content.ContentResolver;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +27,8 @@ import android.widget.Toast;
 import com.example.musicapplication.R;
 import com.example.musicapplication.adapter.LocalMusicAdapter;
 import com.example.musicapplication.bean.LocalMusicBean;
+import com.example.musicapplication.service.PlayMusicService;
+import com.example.musicapplication.utils.SearchFile;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -28,27 +36,25 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MusicMainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MusicMainActivity extends AppCompatActivity implements View.OnClickListener, ServiceConnection {
     ImageView nextIv,playIv,lastIv;
     TextView singerTv,songTv;
     RecyclerView musicRv;
     //数据源
-    List<LocalMusicBean> mDatas;
+    ArrayList<LocalMusicBean> mDatas;
     private LocalMusicAdapter adapter;
-    //记录当前音乐位置
-    private int currentPlayPosition = -1;
     //记录当前音乐暂停进度条
     private int currentMusicPausePosition = 0;
-    //设置全局音乐播放器
-    MediaPlayer mediaPlayer;
+    //播放服务对象
+    PlayMusicService playMusicService;
+    //是否绑定服务
+    private boolean isBind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_main);
         initView();
-        mediaPlayer = new MediaPlayer();
-        mDatas = new ArrayList<>();
         //创建适配器对象
         adapter = new LocalMusicAdapter(this, mDatas);
         musicRv.setAdapter(adapter);
@@ -64,58 +70,35 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
         adapter.setOnItemClickListener(new LocalMusicAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(View view, int position) {
-                currentPlayPosition = position;
-                playMusicInPositon(position);
+//                currentPlayPosition = position;
+//                playMusicInPositon(position);
+                playMusicService.currentPosition = position;
+                //设置底部显示
+                clickChange();
+                //调用音乐服务对象，播放指定位置的音乐
+                playMusicService.playMusicInPosition(position);
+                setPauseicon();
             }
         });
     }
 
-    //播放指定位置的音乐
-    private void playMusicInPositon(int position) {
-        LocalMusicBean musicBean = mDatas.get(position);
+    //根据当前位置修改歌曲名称和歌手名称
+    public void clickChange(){
+        //获取当前位置的对象
+        LocalMusicBean musicBean = mDatas.get(playMusicService.currentPosition);
         //设置底部显示点击的歌曲和歌手名称
         songTv.setText(musicBean.getSong());
         singerTv.setText(musicBean.getSinger());
-        //暂停音乐函数
-        stopMusic();
-        //重置多媒体播放器
-        mediaPlayer.reset();
-        //设置新的路径
-        try {
-            mediaPlayer.setDataSource(musicBean.getPath());
-            playMusic();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     //加载本地数据源
     private void loadLocalMusicData(){
-        //加载本地存储当中的音乐mp3文件到集合之中
-        //1.获取ContentResolver对象
-        ContentResolver resolver = getContentResolver();
-        //2.获取本地音乐存储的uri地址
-        Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-        //3.开始查询地址
-        Cursor cursor = resolver.query(uri,null,null,null,null);
-        //4.遍历cursor
-        int id = 0;
-        while(cursor.moveToNext()){
-            String song = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE));
-            String singer = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST));
-            String album = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM));
-            id++;
-            String sid = String.valueOf(id);
-            String path = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA));
-            long duration = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION));
-            SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
-            String time = sdf.format(new Date(duration));
-            //将一行当中的数据封装到对象当中
-            LocalMusicBean bean = new LocalMusicBean(sid, song,singer,album, time, path);
-            mDatas.add(bean);
-            //数据源变化，提示适配器更新
-            adapter.notifyDataSetChanged();
-        }
+        //同时绑定Playservice对象
+        Intent intent = new Intent(this, PlayMusicService.class);
+        System.out.println("开始绑定service对象");
+        intent.putParcelableArrayListExtra("music", mDatas);
+        bindService(intent,this, Service.BIND_AUTO_CREATE);
+
     }
 
 
@@ -128,79 +111,71 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
         songTv = findViewById(R.id.local_music_bottom_tv_song);
         musicRv = findViewById(R.id.local_music_rv);
 
+        //获取数据源
+        mDatas = SearchFile.searchLocalMusic(this);
+
         nextIv.setOnClickListener(MusicMainActivity.this);
         lastIv.setOnClickListener(this);
         playIv.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.local_music__bottom_iv_last:
-                if (currentPlayPosition == 0) currentPlayPosition = mDatas.size()-1;
-                else currentPlayPosition--;
-                playMusicInPositon(currentPlayPosition);
+                if (playMusicService.currentPosition == 0) playMusicService.currentPosition = mDatas.size()-1;
+                else playMusicService.currentPosition--;
+                clickChange();
+                playMusicService.playMusicInPosition(playMusicService.currentPosition);
+                setPauseicon();
                 break;
             case R.id.local_music__bottom_iv_play:
-                if (currentPlayPosition == -1){
+                if (playMusicService.currentPosition == -1){
                     Toast.makeText(this, "请选择要播放的音乐", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (mediaPlayer.isPlaying()){
+                    System.out.println("cccccccccccccccc"+playMusicService.isPlaying);
+                    if (playMusicService.isPlaying){
                         //此时处于播放状态，需要暂停音乐
-                        pauseMusic();
+                        playMusicService.pauseMusic();
+                        setPlayicon();
                     } else {
                         //否则处于暂停状态，需要播放音乐
-                        playMusic();
+                        playMusicService.playMusic();
+                        setPauseicon();
                     }
                 }
                 break;
             case R.id.local_music__bottom_iv_next:
-                if (currentPlayPosition == mDatas.size()-1) currentPlayPosition = 0;
-                else currentPlayPosition++;
-                playMusicInPositon(currentPlayPosition);
+                if (playMusicService.currentPosition == mDatas.size()-1) playMusicService.currentPosition = 0;
+                else playMusicService.currentPosition++;
+                clickChange();
+                playMusicService.playMusicInPosition(playMusicService.currentPosition);
+                setPauseicon();
                 break;
         }
     }
 
-    //暂停音乐
-    private void pauseMusic() {
-        if (mediaPlayer != null && mediaPlayer.isPlaying()){
-            currentMusicPausePosition = mediaPlayer.getCurrentPosition(); //记录进度条
-            mediaPlayer.pause();    //暂停
-            playIv.setImageResource(R.mipmap.icon_play);    //设置为播放图标
-
-        }
+    //设置播放图标
+    public void setPlayicon(){
+        playIv.setImageResource(R.mipmap.icon_play);
+    }
+    //设置暂停图标
+    public void setPauseicon(){
+        playIv.setImageResource(R.mipmap.icon_pause);
     }
 
-    //播放音乐
-    private void playMusic() {
-        if (mediaPlayer != null && !mediaPlayer.isPlaying()){
-            //从停止到播放
-            if (currentMusicPausePosition == 0){
-                try {
-                    mediaPlayer.prepare();
-                    mediaPlayer.start();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                //否则的话就把进度条移动到暂停时候的位置，并开始播放
-                mediaPlayer.seekTo(currentMusicPausePosition);
-                mediaPlayer.start();
-            }
-            playIv.setImageResource(R.mipmap.icon_pause);
-        }
+    //与service建立链接之后调用
+    @Override
+    public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+        isBind = true;
+        PlayMusicService.MusicBinder musicBinder = (PlayMusicService.MusicBinder) iBinder;
+        //获取service对象
+        playMusicService = musicBinder.getService();
     }
 
-    //停止播放音乐
-    private void stopMusic() {
-        if (mediaPlayer != null){
-            currentMusicPausePosition = 0;
-            mediaPlayer.pause();    //暂停音乐
-            mediaPlayer.seekTo(0); //进度条设置为0
-            mediaPlayer.stop();
-            playIv.setImageResource(R.mipmap.icon_play);  //把中间图标设置为播放
+    @Override
+    public void onServiceDisconnected(ComponentName componentName) {
 
-        }
     }
 }

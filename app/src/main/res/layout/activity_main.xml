@@ -26,7 +26,7 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/shape_register"
         android:layout_below="@id/main_enter_toplayout"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="20dp"
         android:textColor="#DC2C1F"
         android:textSize="18sp"
         />
@@ -40,13 +40,15 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/shape_login"
         android:layout_below="@id/register"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         />
     <RelativeLayout
+        android:id="@+id/icons"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_below="@id/experience"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="77dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true">
         <ImageView
             android:id="@+id/wangyi_icon"

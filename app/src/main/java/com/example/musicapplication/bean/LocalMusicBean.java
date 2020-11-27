@@ -1,6 +1,9 @@
 package com.example.musicapplication.bean;
 
-public class LocalMusicBean {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class LocalMusicBean implements Parcelable {
     private String id;
     private String song;
     private String singer;
@@ -19,6 +22,27 @@ public class LocalMusicBean {
 
     public LocalMusicBean() {
     }
+
+    protected LocalMusicBean(Parcel in) {
+        id = in.readString();
+        song = in.readString();
+        singer = in.readString();
+        album = in.readString();
+        duration = in.readString();
+        path = in.readString();
+    }
+
+    public static final Creator<LocalMusicBean> CREATOR = new Creator<LocalMusicBean>() {
+        @Override
+        public LocalMusicBean createFromParcel(Parcel in) {
+            return new LocalMusicBean(in);
+        }
+
+        @Override
+        public LocalMusicBean[] newArray(int size) {
+            return new LocalMusicBean[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -66,5 +90,20 @@ public class LocalMusicBean {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(song);
+        parcel.writeString(singer);
+        parcel.writeString(album);
+        parcel.writeString(duration);
+        parcel.writeString(path);
     }
 }
