@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/music_play_bg">
+    android:background="@mipmap/music_play_bg3">
     <ImageView
         android:id="@+id/back"
         android:layout_width="30dp"

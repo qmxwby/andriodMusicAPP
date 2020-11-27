@@ -70,14 +70,18 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
         adapter.setOnItemClickListener(new LocalMusicAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(View view, int position) {
-//                currentPlayPosition = position;
-//                playMusicInPositon(position);
-                playMusicService.currentPosition = position;
-                //设置底部显示
-                clickChange();
-                //调用音乐服务对象，播放指定位置的音乐
-                playMusicService.playMusicInPosition(position);
-                setPauseicon();
+                //如果点击同一首歌两次，则进入播放页面
+                if (playMusicService.currentPosition == position) {
+                    Intent intent = new Intent(MusicMainActivity.this, MusicPlay.class);
+                    startActivity(intent);
+                } else {
+                    playMusicService.currentPosition = position;
+                    //设置底部显示
+                    clickChange();
+                    //调用音乐服务对象，播放指定位置的音乐
+                    playMusicService.playMusicInPosition(position);
+                    setPauseicon();
+                }
             }
         });
     }

@@ -39,7 +39,7 @@ import java.util.List;
 public class MusicPlay extends AppCompatActivity implements View.OnClickListener, ServiceConnection {
     private ObjectAnimator discObjectAnimator,neddleObjectAnimator;
     PlayMusicService playMusicService;
-    ImageView nextIv2,playIv2,lastIv2,backIv;
+    ImageView nextIv2,playIv2,lastIv2,backIv,shareIv;
     TextView songTv2;
     private Boolean isBind = false;
 
@@ -115,6 +115,7 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
         lastIv2 = findViewById(R.id.local_music__bottom_iv_last2);
         songTv2 = findViewById(R.id.local_music_bottom_tv_song2);
         backIv = findViewById(R.id.back);
+        shareIv = findViewById(R.id.share);
 
         //绑定Playmusicservice服务
         Intent intent = new Intent(this, PlayMusicService.class);
@@ -123,6 +124,7 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
         lastIv2.setOnClickListener(this);
         playIv2.setOnClickListener(this);
         backIv.setOnClickListener(this);
+        shareIv.setOnClickListener(this);
     }
     @Override
     public void onClick(View view) {
@@ -156,7 +158,20 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
                 Intent intent = new Intent(this, MusicMainActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.share:
+                String song = playMusicService.musicList.get(playMusicService.currentPosition).getSong();
+                shareMusic("快来和我一起听"+song+"这首歌吧，新歌发行，好听到爆");
+                break;
         }
+    }
+
+    //分享音乐功能，调用安卓本身的接口
+    private void shareMusic(String msg) {
+        //安卓自带的分享软件函数
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, msg);
+        startActivity(Intent.createChooser(intent, "音乐播放器"));
     }
 
     //设置播放图标
