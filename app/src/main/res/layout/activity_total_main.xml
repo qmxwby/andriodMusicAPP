@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".base.TotalMainActivity">
+<!--    轮播图部分-->
+    <ImageView
+        android:id="@+id/navbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"/>
+
+    <RelativeLayout
+        android:id="@+id/medium_layout"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/navbar_layout"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true">
+        <ImageView
+            android:id="@+id/myhomepage_icon"
+            android:backgroundTint="@color/colorPink"
+            android:padding="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/myhomepage"
+            android:layout_centerVertical="true"
+            android:background="@drawable/shape_enter_icon"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp">
+        </ImageView>
+        <ImageView
+            android:id="@+id/set_icon"
+            android:padding="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/set_icon"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/colorPink"
+            android:background="@drawable/shape_enter_icon"
+            android:layout_toLeftOf="@id/myhomepage_icon"
+            android:layout_marginRight="25dp">
+        </ImageView>
+        <ImageView
+            android:id="@+id/qq_icon"
+            android:padding="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/icon_play"
+            android:backgroundTint="@color/colorPink"
+            android:layout_centerVertical="true"
+            android:background="@drawable/shape_enter_icon"
+            android:layout_toLeftOf="@id/set_icon"
+            android:layout_marginRight="25dp">
+        </ImageView>
+        <ImageView
+            android:id="@+id/mylist_icon"
+            android:backgroundTint="@color/colorPink"
+            android:padding="6dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/mylist"
+            android:layout_centerVertical="true"
+            android:background="@drawable/shape_enter_icon"
+            android:layout_toLeftOf="@id/qq_icon"
+            android:layout_marginRight="25dp">
+        </ImageView>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/medium_layout"
+        android:layout_marginTop="30dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="500dp"/>
+    </RelativeLayout>
+
+
+
+
+
+
+</RelativeLayout>

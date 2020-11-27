@@ -49,7 +49,7 @@
                 android:layout_below="@id/local_music_bottom_tv_song"
                 android:layout_alignLeft="@id/local_music_bottom_tv_song"
                 android:layout_marginTop="6dp"/>
-        </RelativeLayout>
+        </RelativeLayout>>
         <ImageView
             android:id="@+id/local_music__bottom_iv_next"
             android:layout_width="50dp"
