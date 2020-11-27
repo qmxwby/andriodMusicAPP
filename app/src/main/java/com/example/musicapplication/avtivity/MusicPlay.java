@@ -68,7 +68,7 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
         drawable2.getPaint().setAntiAlias(true);
 
         //最里面的图像
-        RoundedBitmapDrawable drawable3 = RoundedBitmapDrawableFactory.create(getResources(), BitmapFactory.decodeResource(getResources(), R.mipmap.dict_phil));
+        RoundedBitmapDrawable drawable3 = RoundedBitmapDrawableFactory.create(getResources(), BitmapFactory.decodeResource(getResources(), R.mipmap.xusong));
         drawable3.setCircular(true);
         drawable3.setAntiAlias(true);
 
@@ -153,7 +153,8 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
                 setPauseIcon();
                 break;
             case R.id.back:
-                finish();
+                Intent intent = new Intent(this, MusicMainActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -182,7 +183,12 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
         //获取服务对象
         playMusicService = musicBinder.getService();
         setSong();
-        setPauseIcon();
+        //如果是暂停状态进入则还是暂停图标
+        if (playMusicService.isPlaying){
+            setPauseIcon();
+        } else {
+            setPlayIcon();
+        }
     }
     @Override
     public void onServiceDisconnected(ComponentName componentName) {
