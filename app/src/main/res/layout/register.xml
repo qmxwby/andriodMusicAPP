@@ -29,10 +29,10 @@
 
     </RelativeLayout>
     <EditText
-        android:id="@+id/phonenum"
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:hint="请输入手机号"
+        android:hint="请输入用户名"
         android:textSize="20sp"
         android:layout_margin="12dp"
         android:layout_below="@id/register_top"/>
@@ -43,7 +43,7 @@
     android:hint="请输入密码"
     android:textSize="20sp"
     android:layout_margin="12dp"
-    android:layout_below="@id/phonenum"
+    android:layout_below="@id/username"
     />
     <EditText
         android:id="@+id/password2"

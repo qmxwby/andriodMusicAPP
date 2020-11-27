@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.musicapplication.R;
 import com.example.musicapplication.base.MPermissionsActivity;
+import com.example.musicapplication.db.DBManager;
 
 public class MainActivity extends MPermissionsActivity implements View.OnClickListener {
 
@@ -32,6 +33,8 @@ public class MainActivity extends MPermissionsActivity implements View.OnClickLi
         wangyiIv = findViewById(R.id.wangyi_icon);
         registerBtn = findViewById(R.id.register);
         experienceBtn = findViewById(R.id.experience);
+        //创建数据库
+        DBManager.initSQLite(this);
 
         wechatIv.setOnClickListener(this);
         qqIv.setOnClickListener(this);
