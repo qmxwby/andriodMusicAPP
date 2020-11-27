@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 public class PlayMusicService extends Service implements MediaPlayer.OnPreparedListener,MediaPlayer.OnCompletionListener {
 
-    private ArrayList<LocalMusicBean> musicList;//音乐集合
+    public ArrayList<LocalMusicBean> musicList;//音乐集合
     public int currentPosition = -1; //记录当前音乐的播放位置
-    private int currentPausePosition = 0; //记录当前音乐暂停时候的位置
+    public int currentPausePosition = 0; //记录当前音乐暂停时候的位置
     private MediaPlayer mediaPlayer; //音乐播放器对象
     public Boolean isPlaying; //当前音乐是否播放
 

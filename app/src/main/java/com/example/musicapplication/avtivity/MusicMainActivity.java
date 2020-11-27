@@ -37,7 +37,7 @@ import java.util.Date;
 import java.util.List;
 
 public class MusicMainActivity extends AppCompatActivity implements View.OnClickListener, ServiceConnection {
-    ImageView nextIv,playIv,lastIv;
+    ImageView nextIv,playIv,lastIv,enterToPlayIv;
     TextView singerTv,songTv;
     RecyclerView musicRv;
     //数据源
@@ -98,7 +98,6 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
         System.out.println("开始绑定service对象");
         intent.putParcelableArrayListExtra("music", mDatas);
         bindService(intent,this, Service.BIND_AUTO_CREATE);
-
     }
 
 
@@ -110,6 +109,7 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
         singerTv = findViewById(R.id.local_music_bottom_tv_singer);
         songTv = findViewById(R.id.local_music_bottom_tv_song);
         musicRv = findViewById(R.id.local_music_rv);
+        enterToPlayIv = findViewById(R.id.local_music__bottom_iv_icon);
 
         //获取数据源
         mDatas = SearchFile.searchLocalMusic(this);
@@ -117,6 +117,7 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
         nextIv.setOnClickListener(MusicMainActivity.this);
         lastIv.setOnClickListener(this);
         playIv.setOnClickListener(this);
+        enterToPlayIv.setOnClickListener(this);
 
     }
 
@@ -153,6 +154,15 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
                 playMusicService.playMusicInPosition(playMusicService.currentPosition);
                 setPauseicon();
                 break;
+            case R.id.local_music__bottom_iv_icon:
+                if (playMusicService.currentPosition == -1){
+                    Toast.makeText(this, "请选择要播放的音乐", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(this, MusicPlay.class);
+//                    intent.putExtra("pos", playMusicService.currentPosition);
+                    startActivity(intent);
+                    break;
+                }
         }
     }
 
