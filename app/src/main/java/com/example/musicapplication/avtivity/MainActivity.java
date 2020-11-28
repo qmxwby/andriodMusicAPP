@@ -44,10 +44,6 @@ public class MainActivity extends MPermissionsActivity implements View.OnClickLi
         experienceBtn.setOnClickListener(this);
     }
 
-
-
-
-
     @Override
     public void onClick(View view) {
         Intent intent = new Intent();
@@ -62,7 +58,8 @@ public class MainActivity extends MPermissionsActivity implements View.OnClickLi
                 Toast.makeText(this,"程序员哥哥正在加班完善该功能中~，稍安勿躁",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.wangyi_icon:
-                Toast.makeText(this,"程序员哥哥正在加班完善该功能中~，稍安勿躁",Toast.LENGTH_SHORT).show();
+                intent.setClass(this, HomeActivity.class);
+                startActivity(intent);
                 break;
             case R.id.experience:
                 intent.setClass(this, MusicMainActivity.class);

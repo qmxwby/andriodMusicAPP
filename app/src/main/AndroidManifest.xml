@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".avtivity.HomeActivity"></activity>
         <activity android:name=".avtivity.MusicMainActivity"></activity>
         <activity android:name=".avtivity.RegisterActivity"></activity>
         <activity android:name=".avtivity.MusicPlay"></activity>
