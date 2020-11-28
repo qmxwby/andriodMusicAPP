@@ -133,11 +133,10 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
         needleImage.setPivotY(-25);
         neddleObjectAnimator.setDuration(400);
         neddleObjectAnimator.setInterpolator(new LinearInterpolator());
-        discObjectAnimator.start();
-        neddleObjectAnimator.start();
     }
     public void seekbar(){
         seekBar.setMax(playMusicService.mediaPlayer.getDuration());
+        System.out.println("1111111总长度："+playMusicService.mediaPlayer.getDuration());
         seekBar.setProgress(playMusicService.mediaPlayer.getCurrentPosition());
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
@@ -146,6 +145,8 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
                 if(fromUser){
                     //seekBar.getProgress()为进度条拖到的地方
                     playMusicService.mediaPlayer.seekTo(seekBar.getProgress());
+                    //更新playMusicService记录进度条的位置
+                    playMusicService.currentPausePosition = seekBar.getProgress();
                 }
             }
 
@@ -183,10 +184,9 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
                 if (playMusicService.currentPosition <= 0) playMusicService.currentPosition = playMusicService.musicList.size()-1;
                 else playMusicService.currentPosition--;
                 setSong();
-
                 playMusicService.playMusicInPosition(playMusicService.currentPosition);
                 setPauseIcon();
-                //seekbar();
+                seekbar();
                 break;
             case R.id.local_music__bottom_iv_play2:
                 if (playMusicService.isPlaying) {
@@ -201,19 +201,21 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
                     neddleObjectAnimator.start();
                     playMusicService.playMusic();
                     setPauseIcon();
+                    seekbar();
                 }
                 break;
             case R.id.local_music__bottom_iv_next2:
                 if (playMusicService.currentPosition == playMusicService.musicList.size()-1) playMusicService.currentPosition = 0;
                 else playMusicService.currentPosition++;
                 setSong();
-
                 playMusicService.playMusicInPosition(playMusicService.currentPosition);
                 setPauseIcon();
-                //seekbar();
+                seekbar();
                 break;
             case R.id.back:
                 Intent intent = new Intent(this, MusicMainActivity.class);
+                //清空所有任务栈，防止套娃
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             case R.id.share:
@@ -262,8 +264,11 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
         seekbar();
         if (playMusicService.isPlaying){
             setPauseIcon();
+            discObjectAnimator.start();
+            neddleObjectAnimator.start();
         } else {
             setPlayIcon();
+
         }
     }
 
