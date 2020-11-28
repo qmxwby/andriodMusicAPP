@@ -17,6 +17,7 @@ import android.graphics.drawable.shapes.OvalShape;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
@@ -52,7 +53,7 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.music_play);
         initView();
         animators();
-
+        myHandler.post(updateUI);
     }
     public void initView() {
         /*初始化控件的函数*/
@@ -140,18 +141,20 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
         seekBar.setProgress(playMusicService.mediaPlayer.getCurrentPosition());
         //System.out.println("cccccccccccccccc"+seekBar.getMax());
         //System.out.println("aaaaaaaaaaaaaaaa"+playMusicService.mediaPlayer.getCurrentPosition());
-        final myThread t = new myThread();
-        t.start();
+        //final myThread t = new myThread();
+        //t.start();
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+                if(fromUser){
+                    //seekBar.getProgress()为进度条拖到的地方
+                    playMusicService.mediaPlayer.seekTo(seekBar.getProgress());
+                }
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                t.interrupt();
             }
 
             //值改变后
@@ -159,12 +162,24 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
             public void onStopTrackingTouch(SeekBar seekBar2) {
 
 
-                playMusicService.mediaPlayer.seekTo(seekBar2.getProgress());
+                //playMusicService.mediaPlayer.seekTo(seekBar2.getProgress());
 
                 //new myThread().start();
             }
         });
     }
+    private Handler myHandler = new Handler();
+    private Runnable updateUI = new Runnable() {
+        @Override
+        public void run() {
+            //获取歌曲进度并在进度条上展现
+            seekBar.setProgress(playMusicService.mediaPlayer.getCurrentPosition());
+            //获取播放位置
+           // timeTextView.setText(time.format(mediaPlayer.getCurrentPosition()) + "s");
+            myHandler.postDelayed(updateUI,1000);
+        }
+
+    };
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -260,16 +275,16 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
     public void onServiceDisconnected(ComponentName componentName) {
 
     }
-    class  myThread extends Thread{
-        @Override
-        public void run() {
-            super.run();
-            //判断当前播放位置是否小于总时长
-            while (seekBar.getProgress()<=seekBar.getMax()) {
-                //设置进度条当前位置为音频播放位置
-                seekBar.setProgress(playMusicService.mediaPlayer.getCurrentPosition());
-                //System.out.println("cccccccccccccccc"+playMusicService.mediaPlayer.getCurrentPosition());
-            }
-        }
-    }
+//    class  myThread extends Thread{
+//        @Override
+//        public void run() {
+//            super.run();
+//            //判断当前播放位置是否小于总时长
+//            while (seekBar.getProgress()<=seekBar.getMax()) {
+//                //设置进度条当前位置为音频播放位置
+//                seekBar.setProgress(playMusicService.mediaPlayer.getCurrentPosition());
+//                //System.out.println("cccccccccccccccc"+playMusicService.mediaPlayer.getCurrentPosition());
+//            }
+//        }
+//    }
 }
