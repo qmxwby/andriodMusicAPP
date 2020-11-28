@@ -46,6 +46,7 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
     TextView songTv2;
     private SeekBar seekBar;
     private Boolean isBind = false;
+    int flag=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,16 +134,11 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
         needleImage.setPivotY(-25);
         neddleObjectAnimator.setDuration(400);
         neddleObjectAnimator.setInterpolator(new LinearInterpolator());
-        discObjectAnimator.start();
-        neddleObjectAnimator.start();
     }
     public void seekbar(){
         seekBar.setMax(playMusicService.mediaPlayer.getDuration());
+        System.out.println("1111111总长度："+playMusicService.mediaPlayer.getDuration());
         seekBar.setProgress(playMusicService.mediaPlayer.getCurrentPosition());
-        //System.out.println("cccccccccccccccc"+seekBar.getMax());
-        //System.out.println("aaaaaaaaaaaaaaaa"+playMusicService.mediaPlayer.getCurrentPosition());
-        //final myThread t = new myThread();
-        //t.start();
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
@@ -150,6 +146,8 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
                 if(fromUser){
                     //seekBar.getProgress()为进度条拖到的地方
                     playMusicService.mediaPlayer.seekTo(seekBar.getProgress());
+                    //更新playMusicService记录进度条的位置
+                    playMusicService.currentPausePosition = seekBar.getProgress();
                 }
             }
 
@@ -160,7 +158,6 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
             //值改变后
             @Override
             public void onStopTrackingTouch(SeekBar seekBar2) {
-
 
                 //playMusicService.mediaPlayer.seekTo(seekBar2.getProgress());
 
@@ -175,7 +172,7 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
             //获取歌曲进度并在进度条上展现
             seekBar.setProgress(playMusicService.mediaPlayer.getCurrentPosition());
             //获取播放位置
-           // timeTextView.setText(time.format(mediaPlayer.getCurrentPosition()) + "s");
+            // timeTextView.setText(time.format(mediaPlayer.getCurrentPosition()) + "s");
             myHandler.postDelayed(updateUI,1000);
         }
 
@@ -191,21 +188,20 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
 
                 playMusicService.playMusicInPosition(playMusicService.currentPosition);
                 setPauseIcon();
-                //seekbar();
+                seekbar();
                 break;
             case R.id.local_music__bottom_iv_play2:
                 if (playMusicService.isPlaying) {
                     //正在播放，需要暂停
-                    discObjectAnimator.pause();
-                    neddleObjectAnimator.reverse();
+
                     playMusicService.pauseMusic();
                     setPlayIcon();
                 } else {
                     //暂停中，需要播放
-                    discObjectAnimator.resume();
-                    neddleObjectAnimator.start();
+
                     playMusicService.playMusic();
                     setPauseIcon();
+                    seekbar();
                 }
                 break;
             case R.id.local_music__bottom_iv_next2:
@@ -215,7 +211,7 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
 
                 playMusicService.playMusicInPosition(playMusicService.currentPosition);
                 setPauseIcon();
-                //seekbar();
+                seekbar();
                 break;
             case R.id.back:
                 Intent intent = new Intent(this, MusicMainActivity.class);
@@ -239,20 +235,26 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
 
     //设置播放图标
     private void setPlayIcon() {
-
+        discObjectAnimator.pause();
+        neddleObjectAnimator.reverse();
         playIv2.setImageResource(R.mipmap.play2);
     }
     //设置暂停图标
     private void setPauseIcon() {
-
+        if(flag==1){
+            discObjectAnimator.start();
+            flag=0;
+        }else
+        discObjectAnimator.resume();
+        neddleObjectAnimator.start();
         playIv2.setImageResource(R.mipmap.pause2);
     }
 
     //    设置当前歌曲
     public void setSong(){
-    //获取当前正在播放的音乐对象
+        //获取当前正在播放的音乐对象
         LocalMusicBean musicBean = playMusicService.musicList.get(playMusicService.currentPosition);
-    //将歌曲名称显示在上边
+        //将歌曲名称显示在上边
         songTv2.setText(musicBean.getSong());
     }
     //绑定服务成功之后调用的函数
@@ -267,24 +269,18 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
         seekbar();
         if (playMusicService.isPlaying){
             setPauseIcon();
+            discObjectAnimator.start();
+            neddleObjectAnimator.start();
         } else {
+            flag=1;
             setPlayIcon();
+
         }
     }
+
     @Override
     public void onServiceDisconnected(ComponentName componentName) {
 
     }
-//    class  myThread extends Thread{
-//        @Override
-//        public void run() {
-//            super.run();
-//            //判断当前播放位置是否小于总时长
-//            while (seekBar.getProgress()<=seekBar.getMax()) {
-//                //设置进度条当前位置为音频播放位置
-//                seekBar.setProgress(playMusicService.mediaPlayer.getCurrentPosition());
-//                //System.out.println("cccccccccccccccc"+playMusicService.mediaPlayer.getCurrentPosition());
-//            }
-//        }
-//    }
+
 }
