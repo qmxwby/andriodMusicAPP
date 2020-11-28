@@ -146,22 +146,20 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+                if(fromUser){
+                    //seekBar.getProgress()为进度条拖到的地方
+                    playMusicService.mediaPlayer.seekTo(seekBar.getProgress());
+                }
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                t.interrupt();
+
             }
 
             //值改变后
             @Override
             public void onStopTrackingTouch(SeekBar seekBar2) {
-
-
-                playMusicService.mediaPlayer.seekTo(seekBar2.getProgress());
-
-                //new myThread().start();
             }
         });
     }
@@ -256,10 +254,12 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
             setPlayIcon();
         }
     }
+
     @Override
     public void onServiceDisconnected(ComponentName componentName) {
 
     }
+
     class  myThread extends Thread{
         @Override
         public void run() {
