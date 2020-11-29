@@ -20,7 +20,7 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
     public int currentPausePosition = 0; //记录当前音乐暂停时候的位置
     public MediaPlayer mediaPlayer; //音乐播放器对象
     public Boolean isPlaying = false; //当前音乐是否播放
-
+    public int recycle = 0;//默认0为列表循环
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
 
@@ -34,6 +34,7 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
     //播放指定位置的音乐
     public void playMusicInPosition(int position) {
         currentPosition = position;
+
         //获取当前位置的对象
         LocalMusicBean musicBean = musicList.get(position);
         //首先停止所有音乐播放
@@ -48,7 +49,17 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
             e.printStackTrace();
         }
     }
-
+    //播放的循环方式
+    public void recycleStyle(int recycle2){
+        if(recycle2==0&&mediaPlayer.getDuration()==mediaPlayer.getCurrentPosition()){
+            if (currentPosition == musicList.size()-1) currentPosition = 0;
+            else currentPosition++;
+            playMusicInPosition(currentPosition);
+        }
+        else if(recycle2==1&&mediaPlayer.getDuration()==mediaPlayer.getCurrentPosition()){
+            playMusicInPosition(currentPosition);
+        }
+    }
     //暂停播放
     public void pauseMusic() {
         if (mediaPlayer!=null && mediaPlayer.isPlaying()) {
