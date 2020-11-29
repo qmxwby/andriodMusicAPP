@@ -20,6 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String sql = "create table user (_id integer primary key autoincrement, username varchar(20) unique not null, password varchar(20) not null)";
         String sql2 = "create table musiclike (_id integer primary key autoincrement, sid varchar(20) unique not null, musicname varchar(20))";
         db.execSQL(sql);
+
         db.execSQL(sql2);
     }
 

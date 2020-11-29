@@ -65,7 +65,6 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
         loadLocalMusicData();
         //设置每一项的点击事件
         setEventListener();
-
     }
 
     private void setEventListener() {
@@ -94,8 +93,8 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
         //获取当前位置的对象
         LocalMusicBean musicBean = mDatas.get(playMusicService.currentPosition);
         //设置底部显示点击的歌曲和歌手名称
-        songTv.setText(playMusicService.musicList.get(playMusicService.currentPosition).getSong());
-        singerTv.setText(playMusicService.musicList.get(playMusicService.currentPosition).getSinger());
+        songTv.setText(musicBean.getSong());
+        singerTv.setText(musicBean.getSinger());
 
         //如果正在播放，则为暂停图标
         if (playMusicService.isPlaying) {
