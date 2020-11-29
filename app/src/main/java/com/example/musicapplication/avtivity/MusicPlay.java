@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
@@ -246,12 +247,25 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
                 if(playMusicService.like==0){
                     playMusicService.like=1;
                     likeIv.setImageResource(R.mipmap.like2);
+                    Toast.makeText(this, "已添加到我喜欢的音乐",Toast.LENGTH_SHORT).show();
                 }else{
                     playMusicService.like=0;
                     likeIv.setImageResource(R.mipmap.like);
                 }
                 break;
         }
+    }
+
+    //修改手机自带返回功能
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            Intent intent = new Intent(this, MusicMainActivity.class);
+            //清空所有任务栈，防止套娃
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     //分享音乐功能，调用安卓本身的接口
