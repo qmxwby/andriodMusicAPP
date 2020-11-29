@@ -42,12 +42,13 @@ import java.util.List;
 public class MusicPlay extends AppCompatActivity implements View.OnClickListener, ServiceConnection {
     private ObjectAnimator discObjectAnimator,neddleObjectAnimator;
     PlayMusicService playMusicService;
-    ImageView nextIv2,playIv2,lastIv2,backIv,shareIv;
+    ImageView nextIv2,playIv2,lastIv2,backIv,shareIv,recycleIv;
     TextView songTv2;
     private SeekBar seekBar;
     private Boolean isBind = false;
     int flag=0;
-
+    private Handler myHandler = new Handler();
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +66,7 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
         backIv = findViewById(R.id.back);
         shareIv = findViewById(R.id.share);
         seekBar = findViewById(R.id.progress);
+        recycleIv = findViewById(R.id.local_music__bottom_iv_recycle);
 
         //绑定Playmusicservice服务
         Intent intent = new Intent(this, PlayMusicService.class);
@@ -74,6 +76,7 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
         playIv2.setOnClickListener(this);
         backIv.setOnClickListener(this);
         shareIv.setOnClickListener(this);
+        recycleIv.setOnClickListener(this);
         //seekBar.setOnClickListener(this);
     }
     public void animators(){
@@ -165,15 +168,20 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
             }
         });
     }
-    private Handler myHandler = new Handler();
     private Runnable updateUI = new Runnable() {
         @Override
         public void run() {
+            System.out.println(playMusicService.mediaPlayer.getDuration()+"!!"+playMusicService.mediaPlayer.getCurrentPosition());
+            if(playMusicService.mediaPlayer.getDuration()==playMusicService.mediaPlayer.getCurrentPosition()){
+                playMusicService.recycleStyle(playMusicService.recycle);
+                System.out.println(playMusicService.recycle);
+            }
             //获取歌曲进度并在进度条上展现
             seekBar.setProgress(playMusicService.mediaPlayer.getCurrentPosition());
             //获取播放位置
             // timeTextView.setText(time.format(mediaPlayer.getCurrentPosition()) + "s");
             myHandler.postDelayed(updateUI,1000);
+
         }
 
     };
@@ -221,6 +229,14 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
                 String song = playMusicService.musicList.get(playMusicService.currentPosition).getSong();
                 shareMusic("快来和我一起听"+song+"这首歌吧，新歌发行，好听到爆");
                 break;
+            case R.id.local_music__bottom_iv_recycle:
+                if(playMusicService.recycle==0){
+                    playMusicService.recycle=1;
+                    recycleIv.setImageResource(R.mipmap.recycle2);
+                }else{
+                    playMusicService.recycle=0;
+                    recycleIv.setImageResource(R.mipmap.recycle1);
+                }
         }
     }
 
