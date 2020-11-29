@@ -19,6 +19,8 @@ public class DBHelper extends SQLiteOpenHelper {
         //创建表的操作
         String sql = "create table user (_id integer primary key autoincrement, username varchar(20) unique not null, password varchar(20) not null)";
         db.execSQL(sql);
+        String sql2 = "create table like_music (_id integer primary key autoincrement,sid varchar(20) not null)";
+        db.execSQL(sql2);
     }
 
     @Override

@@ -47,4 +47,23 @@ public class DBManager {
         }
         return flag;
     }
+
+    public static long addMusic(String num){
+        ContentValues values = new ContentValues();
+        values.put("sid", num);
+        return db.insert("like_music", null, values);
+
+    }
+    public static List<String> findLikeMusic(){
+        Cursor cursor = db.query("like_music", null, null, null, null, null, null);
+        List<String> list = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            String id = cursor.getString(cursor.getColumnIndex("sid"));
+            list.add(id);
+        }
+        return list;
+    }
+    public static void deleteMusic(String num){
+        db.delete("like_music", "sid="+num, null);
+    }
 }
