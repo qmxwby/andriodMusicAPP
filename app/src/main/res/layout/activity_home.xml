@@ -2,14 +2,16 @@
 
 
 
-<RelativeLayout
+<ScrollView
     android:id="@+id/top"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     tools:context=".avtivity.HomeActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/home_layout_top"
         android:layout_width="match_parent"
@@ -36,6 +38,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_below="@id/home_layout_top"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:layout_marginTop="10dp">
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -122,5 +126,169 @@
                 android:layout_marginTop="5dp"></TextView>
         </RelativeLayout>
     </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/home_layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/home_layout_center">
+     <TextView
+         android:id="@+id/home_tuijian"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="为你推荐"
+         android:layout_alignParentLeft="true"
+         android:layout_marginLeft="20dp"
+         android:layout_marginTop="20dp"
+         android:padding="10dp"
+         android:textStyle="bold"
+         android:textSize="22sp"></TextView>
+        <LinearLayout
+            android:id="@+id/home_layout_bottom_first"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_tuijian"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/image_first"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/ranklist_first"></ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:text="云音乐飙升榜"
+                    android:layout_below="@id/image_first"
+                    android:textStyle="bold"></TextView>
+            </RelativeLayout>
 
-</RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/image_second"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/ranklist_second">
+                </ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="云音乐新歌榜"
+                    android:layout_below="@id/image_second"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    android:paddingTop="5dp"></TextView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/image_third"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/ranklist_third">
+                </ImageView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="云音乐原创榜"
+                    android:layout_below="@id/image_third"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    android:paddingTop="5dp"></TextView>
+            </RelativeLayout>
+        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/home_layout_bottom_second"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/home_layout_bottom_first"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/image_fourth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/ranklist_fourth"></ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:text="云音乐热歌榜"
+                android:layout_below="@id/image_fourth"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"></TextView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/image_fivth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/ranklist_five">
+            </ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="古典音乐榜"
+                android:layout_below="@id/image_fivth"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                android:paddingTop="5dp"></TextView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/image_six"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/ranklist_six">
+            </ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ACG音乐榜"
+                android:layout_below="@id/image_six"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                android:paddingTop="5dp"></TextView>
+        </RelativeLayout>
+    </LinearLayout>
+    </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>
