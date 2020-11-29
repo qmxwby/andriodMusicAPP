@@ -1,36 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+
 <RelativeLayout
     android:id="@+id/top"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context=".avtivity.HomeActivity">
-
-    <com.example.musicapplication.bean.MyViewPager
-        android:id="@+id/looper_pager"
+    <RelativeLayout
+        android:id="@+id/home_layout_top"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
-
+        android:layout_height="200dp"
+        android:layout_marginBottom="10dp">
+        <com.example.musicapplication.bean.MyViewPager
+            android:id="@+id/looper_pager"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+        <LinearLayout
+            android:id="@+id/points_container"
+            android:gravity="center"
+            android:layout_marginTop="10px"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp">
+        </LinearLayout>
+    </RelativeLayout>
     <LinearLayout
-        android:id="@+id/points_container"
-        android:gravity="center"
-        android:layout_marginTop="10px"
-        android:orientation="horizontal"
+        android:id="@+id/home_layout_center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        >
-<!--                <View-->
-<!--                android:layout_width="40px"-->
-<!--                android:layout_height="40px"-->
-<!--                android:background="@drawable/shape_point_selected"/>-->
-<!--                <View-->
-<!--                    android:layout_width="40px"-->
-<!--                    android:layout_height="40px"-->
-<!--                    android:layout_marginLeft="20px"-->
-<!--                    android:background="@drawable/shape_point_normal"/>-->
+        android:orientation="horizontal"
+        android:layout_below="@id/home_layout_top"
+        android:layout_marginTop="10dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp">
+            <ImageView
+                android:id="@+id/home_user_center"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@mipmap/usercenter"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/shape_home_icon_bg">
+            </ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/home_user_center"
+                android:text="用户中心"
+                android:layout_centerHorizontal="true"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"></TextView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp">
+            <ImageView
+                android:id="@+id/home_user_musiclist"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@mipmap/mymusic"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/shape_home_icon_bg">
+            </ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/home_user_musiclist"
+                android:text="音乐列表"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"></TextView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp">
+            <ImageView
+                android:id="@+id/home_user_diantai"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@mipmap/diantai"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/shape_home_icon_bg">
+            </ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/home_user_diantai"
+                android:text="电台"
+                android:layout_centerHorizontal="true"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"></TextView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp">
+            <ImageView
+                android:id="@+id/home_user_paihangbang"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@mipmap/paihang"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/shape_home_icon_bg">
+            </ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/home_user_paihangbang"
+                android:text="排行榜"
+                android:layout_centerHorizontal="true"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"></TextView>
+        </RelativeLayout>
     </LinearLayout>
 
 </RelativeLayout>
