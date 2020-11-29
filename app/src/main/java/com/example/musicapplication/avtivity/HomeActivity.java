@@ -2,11 +2,15 @@ package com.example.musicapplication.avtivity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.musicapplication.R;
 import com.example.musicapplication.adapter.LooperPagerAdapter;
@@ -16,11 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HomeActivity extends AppCompatActivity implements MyViewPager.onViewPagerTouchListener, ViewPager.OnPageChangeListener {
+public class HomeActivity extends AppCompatActivity implements MyViewPager.onViewPagerTouchListener, ViewPager.OnPageChangeListener, View.OnClickListener {
     private static final String TAG = "HomeActivity";
     private MyViewPager mLoopPager;
+    private ImageView musicIv;
     private LooperPagerAdapter mLooperPagerAdapter;
     private static List<Integer> sPics = new ArrayList<>();
+    private long exitTime;//第一次单机退出键的时间
     static{
         sPics.add(R.mipmap.first);
         sPics.add(R.mipmap.second);
@@ -73,6 +79,7 @@ public class HomeActivity extends AppCompatActivity implements MyViewPager.onVie
     private void initView() {
         //找到viewPager控件
         mLoopPager = (MyViewPager) this.findViewById(R.id.looper_pager);
+        musicIv = findViewById(R.id.home_user_musiclist);
         //设置适配器
         mLooperPagerAdapter = new LooperPagerAdapter();
         mLooperPagerAdapter.setData(sPics);
@@ -83,6 +90,9 @@ public class HomeActivity extends AppCompatActivity implements MyViewPager.onVie
         //根据图片的个数去添加点的个数
         insertPoint();
         mLoopPager.setCurrentItem(mLooperPagerAdapter.getDataRealSize() * 100 ,false);
+
+        //设置点击事件
+        musicIv.setOnClickListener(this);
 
     }
 
@@ -109,6 +119,27 @@ public class HomeActivity extends AppCompatActivity implements MyViewPager.onVie
 
     }
 
+    /**
+     * 退出按钮
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            // System.currentTimeMillis()无论何时调用，肯定大于2000
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+
     @Override
     public void onPageSelected(int position) {
         int realPosition;
@@ -120,6 +151,7 @@ public class HomeActivity extends AppCompatActivity implements MyViewPager.onVie
         }
         setSelectPoint(realPosition);
     }
+
 
     private void setSelectPoint(int realPosition) {
         for(int i = 0; i < mPointContainer.getChildCount();i++){
@@ -136,5 +168,15 @@ public class HomeActivity extends AppCompatActivity implements MyViewPager.onVie
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.home_user_musiclist:
+                Intent intent = new Intent(this, MusicMainActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }

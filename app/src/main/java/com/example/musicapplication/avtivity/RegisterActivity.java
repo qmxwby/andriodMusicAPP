@@ -3,6 +3,7 @@ package com.example.musicapplication.avtivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,12 +62,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             //将用户数据保存到数据库中，并完成跳转
                             DBManager.addUser(username, password1);
                             Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
-                            intent.setClass(this, MusicMainActivity.class);
+                            intent.setClass(this, HomeActivity.class);
+                            //清除所有栈
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         }
                     }
                 }
                 break;
         }
+    }
+
+    //从注册页面返回的时候要清空所有栈
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

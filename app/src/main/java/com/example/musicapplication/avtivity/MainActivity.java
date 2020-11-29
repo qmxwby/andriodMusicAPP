@@ -58,11 +58,12 @@ public class MainActivity extends MPermissionsActivity implements View.OnClickLi
                 Toast.makeText(this,"程序员哥哥正在加班完善该功能中~，稍安勿躁",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.wangyi_icon:
-                intent.setClass(this, HomeActivity.class);
-                startActivity(intent);
+                Toast.makeText(this,"程序员哥哥正在加班完善该功能中~，稍安勿躁",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.experience:
-                intent.setClass(this, MusicMainActivity.class);
+                intent.setClass(this, HomeActivity.class);
+                //清空所有栈
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             case R.id.register:
