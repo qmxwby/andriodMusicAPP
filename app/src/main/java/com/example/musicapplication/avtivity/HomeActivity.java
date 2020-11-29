@@ -95,7 +95,15 @@ public class HomeActivity extends AppCompatActivity implements MyViewPager.onVie
         //设置点击事件
         musicIv.setOnClickListener(this);
         userIv.setOnClickListener(this);
+        System.out.println("我是HomeActivity的onCreate方法");
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        this.setIntent(intent);
+        super.onNewIntent(intent);
+        System.out.println("我是HomeActivity的onNewIntent方法");
     }
 
     private void insertPoint() {
@@ -177,7 +185,7 @@ public class HomeActivity extends AppCompatActivity implements MyViewPager.onVie
         switch (view.getId()) {
             case R.id.home_user_musiclist:
                  intent.setClass(this, MusicMainActivity.class);
-                startActivity(intent);
+                 startActivity(intent);
                 break;
             case R.id.home_user_center:
                 intent.setClass(this, MySpaceActivity.class);

@@ -65,6 +65,15 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
         loadLocalMusicData();
         //设置每一项的点击事件
         setEventListener();
+        System.out.println("我是oncreate");
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        this.setIntent(intent);
+        super.onNewIntent(intent);
+        clickChange();
+        System.out.println("我是onnewIntent");
     }
 
     private void setEventListener() {
@@ -74,6 +83,7 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
                 //如果点击同一首歌两次，则进入播放页面
                 if (playMusicService.currentPosition == position) {
                     Intent intent = new Intent(MusicMainActivity.this, MusicPlay.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 } else {
                     playMusicService.currentPosition = position;
@@ -172,7 +182,7 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
                     Toast.makeText(this, "请选择要播放的音乐", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(this, MusicPlay.class);
-//                    intent.putExtra("pos", playMusicService.currentPosition);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     break;
                 }
@@ -184,7 +194,6 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             Intent intent = new Intent();
             intent.setClass(this, HomeActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
         return super.onKeyDown(keyCode, event);

@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }else{
                         System.out.println(222);
                     }
+                    //setFlags FLAG_ACTIVITY_CLEAR_TOP
                 }
                 break;
             case R.id.login_back:

@@ -225,8 +225,7 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
                 break;
             case R.id.back:
                 Intent intent = new Intent(this, MusicMainActivity.class);
-                //清空所有任务栈，防止套娃
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                //musicMainActivity为单例模式，不会套娃
                 startActivity(intent);
                 break;
             case R.id.share:
@@ -264,7 +263,7 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             Intent intent = new Intent(this, MusicMainActivity.class);
             //清空所有任务栈，防止套娃
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
         return super.onKeyDown(keyCode, event);
