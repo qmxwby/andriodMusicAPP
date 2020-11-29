@@ -169,7 +169,6 @@ public class HomeActivity extends AppCompatActivity implements MyViewPager.onVie
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
     }
 
     @Override
@@ -184,6 +183,13 @@ public class HomeActivity extends AppCompatActivity implements MyViewPager.onVie
                 intent.setClass(this, MySpaceActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.home_user_diantai:
+                Toast.makeText(this,"该功能尚未开放",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.home_user_paihangbang:
+                Toast.makeText(this,"该功能尚未开放",Toast.LENGTH_SHORT).show();
+                break;
+
         }
     }
 }
