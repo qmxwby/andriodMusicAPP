@@ -42,13 +42,13 @@ import java.util.List;
 public class MusicPlay extends AppCompatActivity implements View.OnClickListener, ServiceConnection {
     private ObjectAnimator discObjectAnimator,neddleObjectAnimator;
     PlayMusicService playMusicService;
-    ImageView nextIv2,playIv2,lastIv2,backIv,shareIv,recycleIv;
+    ImageView nextIv2,playIv2,lastIv2,backIv,shareIv,recycleIv,likeIv;
     TextView songTv2;
     private SeekBar seekBar;
     private Boolean isBind = false;
     int flag=0;
     private Handler myHandler = new Handler();
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +67,7 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
         shareIv = findViewById(R.id.share);
         seekBar = findViewById(R.id.progress);
         recycleIv = findViewById(R.id.local_music__bottom_iv_recycle);
+        likeIv = findViewById(R.id.local_music__bottom_iv_like);
 
         //绑定Playmusicservice服务
         Intent intent = new Intent(this, PlayMusicService.class);
@@ -77,6 +78,7 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
         backIv.setOnClickListener(this);
         shareIv.setOnClickListener(this);
         recycleIv.setOnClickListener(this);
+        likeIv.setOnClickListener(this);
         //seekBar.setOnClickListener(this);
     }
     public void animators(){
@@ -146,6 +148,9 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                playMusicService.recycleStyle(playMusicService.recycle);
+                seekBar.setMax(playMusicService.mediaPlayer.getDuration());
+                songTv2.setText(playMusicService.musicList.get(playMusicService.currentPosition).getSong());
                 if(fromUser){
                     //seekBar.getProgress()为进度条拖到的地方
                     playMusicService.mediaPlayer.seekTo(seekBar.getProgress());
@@ -161,7 +166,9 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
             //值改变后
             @Override
             public void onStopTrackingTouch(SeekBar seekBar2) {
-
+                playMusicService.recycleStyle(playMusicService.recycle);
+                seekBar.setMax(playMusicService.mediaPlayer.getDuration());
+                songTv2.setText(playMusicService.musicList.get(playMusicService.currentPosition).getSong());
                 //playMusicService.mediaPlayer.seekTo(seekBar2.getProgress());
 
                 //new myThread().start();
@@ -171,11 +178,6 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
     private Runnable updateUI = new Runnable() {
         @Override
         public void run() {
-            System.out.println(playMusicService.mediaPlayer.getDuration()+"!!"+playMusicService.mediaPlayer.getCurrentPosition());
-            if(playMusicService.mediaPlayer.getDuration()==playMusicService.mediaPlayer.getCurrentPosition()){
-                playMusicService.recycleStyle(playMusicService.recycle);
-                System.out.println(playMusicService.recycle);
-            }
             //获取歌曲进度并在进度条上展现
             seekBar.setProgress(playMusicService.mediaPlayer.getCurrentPosition());
             //获取播放位置
@@ -233,10 +235,22 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
                 if(playMusicService.recycle==0){
                     playMusicService.recycle=1;
                     recycleIv.setImageResource(R.mipmap.recycle2);
+                    Toast.makeText(this, "开启单曲循环", Toast.LENGTH_SHORT).show();
                 }else{
                     playMusicService.recycle=0;
                     recycleIv.setImageResource(R.mipmap.recycle1);
+                    Toast.makeText(this, "开启列表循环", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.local_music__bottom_iv_like:
+                if(playMusicService.like==0){
+                    playMusicService.like=1;
+                    likeIv.setImageResource(R.mipmap.like2);
+                }else{
+                    playMusicService.like=0;
+                    likeIv.setImageResource(R.mipmap.like);
+                }
+                break;
         }
     }
 
