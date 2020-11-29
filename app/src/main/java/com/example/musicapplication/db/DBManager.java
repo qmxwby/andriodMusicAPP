@@ -47,4 +47,13 @@ public class DBManager {
         }
         return flag;
     }
+
+    //增加收藏
+    public static long addMusic(String sid, String musicName){
+        ContentValues values = new ContentValues();
+        values.put("sid", sid);
+        values.put("musicname", musicName);
+        return db.insert("musiclike", null, values);
+    }
+    //查询所有收藏歌曲
 }

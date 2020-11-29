@@ -36,6 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.musicapplication.R;
 import com.example.musicapplication.adapter.LocalMusicAdapter;
 import com.example.musicapplication.bean.LocalMusicBean;
+import com.example.musicapplication.db.DBManager;
 import com.example.musicapplication.service.PlayMusicService;
 
 import java.util.List;
@@ -248,6 +249,7 @@ public class MusicPlay extends AppCompatActivity implements View.OnClickListener
                     playMusicService.like=1;
                     likeIv.setImageResource(R.mipmap.like2);
                     Toast.makeText(this, "已添加到我喜欢的音乐",Toast.LENGTH_SHORT).show();
+                    DBManager.addMusic(playMusicService.musicList.get(playMusicService.currentPosition).getId(), playMusicService.musicList.get(playMusicService.currentPosition).getSong());
                 }else{
                     playMusicService.like=0;
                     likeIv.setImageResource(R.mipmap.like);

@@ -23,7 +23,7 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity implements MyViewPager.onViewPagerTouchListener, ViewPager.OnPageChangeListener, View.OnClickListener {
     private static final String TAG = "HomeActivity";
     private MyViewPager mLoopPager;
-    private ImageView musicIv;
+    private ImageView musicIv, userIv;
     private LooperPagerAdapter mLooperPagerAdapter;
     private static List<Integer> sPics = new ArrayList<>();
     private long exitTime;//第一次单机退出键的时间
@@ -80,6 +80,7 @@ public class HomeActivity extends AppCompatActivity implements MyViewPager.onVie
         //找到viewPager控件
         mLoopPager = (MyViewPager) this.findViewById(R.id.looper_pager);
         musicIv = findViewById(R.id.home_user_musiclist);
+        userIv = findViewById(R.id.home_user_center);
         //设置适配器
         mLooperPagerAdapter = new LooperPagerAdapter();
         mLooperPagerAdapter.setData(sPics);
@@ -93,6 +94,7 @@ public class HomeActivity extends AppCompatActivity implements MyViewPager.onVie
 
         //设置点击事件
         musicIv.setOnClickListener(this);
+        userIv.setOnClickListener(this);
 
     }
 
@@ -172,9 +174,14 @@ public class HomeActivity extends AppCompatActivity implements MyViewPager.onVie
 
     @Override
     public void onClick(View view) {
+        Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.home_user_musiclist:
-                Intent intent = new Intent(this, MusicMainActivity.class);
+                 intent.setClass(this, MusicMainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.home_user_center:
+                intent.setClass(this, MySpaceActivity.class);
                 startActivity(intent);
                 break;
         }

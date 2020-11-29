@@ -76,7 +76,10 @@
             android:layout_margin="12dp"
             android:layout_below="@id/newpass1"
             android:background="@drawable/shape_login"
-            android:text="完成修改"/>
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="完 成 修 改"/>
 
     </RelativeLayout>
 
