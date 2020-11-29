@@ -37,6 +37,15 @@ public class DBManager {
         return list;
     }
 
+    //根据username返回用户信息
+    public static DateBaseBean queryUserByusername(String name) {
+        Cursor cursor = db.query("user", null, "username=?", new String[]{name}, null, null, null);
+        int id = cursor.getInt(cursor.getColumnIndex("_id"));
+        String username = cursor.getString(cursor.getColumnIndex("username"));
+        String password = cursor.getString(cursor.getColumnIndex("password"));
+        DateBaseBean dateBaseBean = new DateBaseBean(id, username, password);
+        return dateBaseBean;
+    }
     //查询指定用户是否注册
     public static int queryUserByName(String name) {
         int flag = 0;

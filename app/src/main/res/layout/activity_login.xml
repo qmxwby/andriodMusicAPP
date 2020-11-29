@@ -46,13 +46,13 @@
         android:layout_below="@id/login_username"
         />
     <Button
-        android:id="@+id/register_over"
+        android:id="@+id/login_over"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@id/login_password"
         android:layout_margin="15dp"
         android:background="@drawable/shape_login"
-        android:text="一键登录"
+        android:text="登录"
         android:textColor="#FFFFFF"
         android:textSize="24dp"/>
 
