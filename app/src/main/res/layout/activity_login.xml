@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".avtivity.MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/register_top"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:id="@+id/register_back"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/register_back"
+            android:text="立即登录"
+            android:textColor="#000000"
+            android:textSize="25sp"/>
+
+    </RelativeLayout>
+    <EditText
+        android:id="@+id/login_username"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="请输入用户名"
+        android:textSize="20sp"
+        android:layout_margin="12dp"
+        android:layout_below="@id/register_top"/>
+    <EditText
+        android:id="@+id/login_password"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="请输入密码"
+        android:textSize="20sp"
+        android:layout_margin="12dp"
+        android:layout_below="@id/login_username"
+        />
+    <Button
+        android:id="@+id/register_over"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/login_password"
+        android:layout_margin="15dp"
+        android:background="@drawable/shape_login"
+        android:text="一键登录"
+        android:textColor="#FFFFFF"
+        android:textSize="24dp"/>
+
+
+</RelativeLayout>
