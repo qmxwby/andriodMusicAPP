@@ -8,6 +8,7 @@ import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 
+import com.example.musicapplication.avtivity.MusicMainActivity;
 import com.example.musicapplication.bean.LocalMusicBean;
 
 import java.io.IOException;
@@ -21,6 +22,7 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
     public MediaPlayer mediaPlayer; //音乐播放器对象
     public Boolean isPlaying = false; //当前音乐是否播放
     public int recycle = 0;//默认0为列表循环
+    public int like = 0;//默认该歌曲为非收藏歌曲
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
 
@@ -50,15 +52,19 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
         }
     }
     //播放的循环方式
-    public void recycleStyle(int recycle2){
-        if(recycle2==0&&mediaPlayer.getDuration()==mediaPlayer.getCurrentPosition()){
+    public int recycleStyle(int recycle2){
+        System.out.println(mediaPlayer.getDuration()+"!!!"+mediaPlayer.getCurrentPosition());
+        if(recycle2==0&&mediaPlayer.getDuration()<=mediaPlayer.getCurrentPosition()){
             if (currentPosition == musicList.size()-1) currentPosition = 0;
             else currentPosition++;
             playMusicInPosition(currentPosition);
+            return mediaPlayer.getDuration();
         }
-        else if(recycle2==1&&mediaPlayer.getDuration()==mediaPlayer.getCurrentPosition()){
+        else if(recycle2==1&&mediaPlayer.getDuration()<=mediaPlayer.getCurrentPosition()){
             playMusicInPosition(currentPosition);
+            return mediaPlayer.getDuration();
         }
+        return mediaPlayer.getDuration();
     }
     //暂停播放
     public void pauseMusic() {
