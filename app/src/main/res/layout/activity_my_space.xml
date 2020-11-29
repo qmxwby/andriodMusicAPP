@@ -29,7 +29,7 @@
             android:layout_centerVertical="true"
             android:textSize="30sp" />
         <ImageView
-            android:id="@+id/space_back"
+            android:id="@+id/to_login"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

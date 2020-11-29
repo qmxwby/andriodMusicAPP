@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.musicapplication.R;
@@ -17,6 +18,7 @@ import com.example.musicapplication.db.DateBaseBean;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     EditText usernameEt, passwordEt;
     Button overBtn;
+    ImageView backIv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +31,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         usernameEt = findViewById(R.id.login_username);
         passwordEt = findViewById(R.id.login_password);
         overBtn = findViewById(R.id.login_over);
+        backIv = findViewById(R.id.login_back);
 
         overBtn.setOnClickListener(this);
+        backIv.setOnClickListener(this);
     }
 
     @Override
@@ -43,19 +47,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
                     Toast.makeText(this, "输入框内容不能为空", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (DBManager.queryUserByName(username) == 0) {
-                        Toast.makeText(this, "该用户不存在", Toast.LENGTH_SHORT).show();
-                    } else {
-                        DateBaseBean dateBaseBean = DBManager.queryUserByusername(username);
-                        if (!dateBaseBean.getPassword().equals(password)){
-                            Toast.makeText(this, "密码错误", Toast.LENGTH_SHORT).show();
-                        } else {
-                            intent.setClass(this, MySpaceActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                        }
+                    if (DBManager.queryUserByusername(username) == null) {
+                        System.out.println("111");
+                    }else{
+                        System.out.println(222);
                     }
                 }
+                break;
+            case R.id.login_back:
+                finish();
                 break;
         }
     }

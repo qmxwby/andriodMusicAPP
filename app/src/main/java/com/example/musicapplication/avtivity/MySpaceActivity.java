@@ -6,21 +6,34 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.musicapplication.R;
 
 public class MySpaceActivity extends AppCompatActivity implements View.OnClickListener {
     TextView loginTv;
+    ImageView toLoginTv;
+    String userName = null;  //记录用户名
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_space);
+        setUserName();
         initView();
+
+    }
+
+    //设置用户名
+    private void setUserName() {
+        Intent intent = getIntent();
+        userName = intent.getStringExtra("username");
+        System.out.println(userName);
     }
 
     private void initView() {
         loginTv = findViewById(R.id.textname);
+        toLoginTv = findViewById(R.id.to_login);
 
         loginTv.setOnClickListener(this);
     }
