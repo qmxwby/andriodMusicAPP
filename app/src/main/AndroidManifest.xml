@@ -12,14 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".avtivity.MySpaceActivity"></activity>
+        <activity android:name=".avtivity.LoginActivity" />
+        <activity android:name=".avtivity.HomeActivity" />
+        <activity android:name=".avtivity.MusicMainActivity" />
+        <activity android:name=".avtivity.RegisterActivity" />
+        <activity android:name=".avtivity.MusicPlay" />
 
-        <activity android:name=".avtivity.HomeActivity"></activity>
-        <activity android:name=".avtivity.MusicMainActivity"></activity>
-        <activity android:name=".avtivity.RegisterActivity"></activity>
-        <activity android:name=".avtivity.MusicPlay"></activity>
-        <service android:name=".service.PlayMusicService"></service>
+        <service android:name=".service.PlayMusicService" />
+
         <activity android:name=".avtivity.MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
