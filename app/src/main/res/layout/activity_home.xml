@@ -155,13 +155,14 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:layout_weight="1">
+
                 <ImageView
                     android:id="@+id/image_first"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:layout_centerHorizontal="true"
-                    android:src="@mipmap/ranklist_first"></ImageView>
+                    android:src="@mipmap/ranklist_first"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.musicapplication.R;
 import com.example.musicapplication.adapter.LooperPagerAdapter;
 import com.example.musicapplication.bean.MyViewPager;
+import com.example.musicapplication.utils.ActivityMananer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,6 +141,8 @@ public class HomeActivity extends AppCompatActivity implements MyViewPager.onVie
                 Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
             } else {
+                //清除单一实例的栈
+                ActivityMananer.finishActivity();
                 finish();
                 System.exit(0);
             }
@@ -197,7 +200,6 @@ public class HomeActivity extends AppCompatActivity implements MyViewPager.onVie
             case R.id.home_user_paihangbang:
                 Toast.makeText(this,"该功能尚未开放",Toast.LENGTH_SHORT).show();
                 break;
-
         }
     }
 }

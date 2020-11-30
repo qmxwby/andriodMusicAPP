@@ -29,6 +29,7 @@ import com.example.musicapplication.R;
 import com.example.musicapplication.adapter.LocalMusicAdapter;
 import com.example.musicapplication.bean.LocalMusicBean;
 import com.example.musicapplication.service.PlayMusicService;
+import com.example.musicapplication.utils.ActivityMananer;
 import com.example.musicapplication.utils.SearchFile;
 
 import java.io.IOException;
@@ -65,12 +66,13 @@ public class MusicMainActivity extends AppCompatActivity implements View.OnClick
         loadLocalMusicData();
         //设置每一项的点击事件
         setEventListener();
+        ActivityMananer.addActivity(this);
         System.out.println("我是oncreate");
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
-        this.setIntent(intent);
+//        this.setIntent(intent);
         super.onNewIntent(intent);
         clickChange();
         System.out.println("我是onnewIntent");
