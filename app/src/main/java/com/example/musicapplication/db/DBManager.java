@@ -36,15 +36,11 @@ public class DBManager {
         }
         return list;
     }
-
-    //根据username返回用户信息
-    public static String queryUserByusername(String name) {
-        String password = null;
-        Cursor cursor = db.query("user", null, "username=?", new String[]{name}, null, null, null);
-        if (cursor.getCount() > 0) {
-            password = cursor.getString(cursor.getColumnIndex("password"));
-        }
-        return password;
+    //修改用户密码
+    public static int updatePass(String username, String pass) {
+        ContentValues values = new ContentValues();
+        values.put("password", pass);
+        return db.update("user", values, "username=?", new String[]{username});
     }
     //查询指定用户是否注册
     public static int queryUserByName(String name) {

@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_toRightOf="@id/textImage"
-            android:text="立即登录"
+            android:text=""
             android:textColor="#201E1E"
             android:layout_centerVertical="true"
             android:textSize="20sp" />
