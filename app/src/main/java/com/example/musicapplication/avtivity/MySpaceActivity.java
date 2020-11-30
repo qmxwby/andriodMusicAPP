@@ -46,6 +46,7 @@ public class MySpaceActivity extends AppCompatActivity implements View.OnClickLi
         ActivityMananer.addActivity(this);
         initView();
         loginTv.setText("立即登录");
+        setUserName();
     }
 
     @Override
@@ -61,11 +62,12 @@ public class MySpaceActivity extends AppCompatActivity implements View.OnClickLi
     private void setUserName() {
         Intent intent = getIntent();
         String userName = intent.getStringExtra("username");
+        System.out.println("我是username"+userName);
         if (userName == null) {
             return;
         }
         currentName = userName;
-        loginTv.setText("欢迎你，"+userName);
+        loginTv.setText("欢迎你，"+currentName);
     }
 
     private void initView() {
@@ -108,6 +110,10 @@ public class MySpaceActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.space_finish:
                 String pass1 = newPass1.getText().toString();
                 String pass2 = newPass2.getText().toString();
+                if (TextUtils.isEmpty(currentName)) {
+                    Toast.makeText(this,"请登录之后再操作", Toast.LENGTH_SHORT).show();
+                    break;
+                }
                 if (TextUtils.isEmpty(pass1) || TextUtils.isEmpty(pass2)) {
                     Toast.makeText(this, "输入框不能为空", Toast.LENGTH_SHORT).show();
                 } else {

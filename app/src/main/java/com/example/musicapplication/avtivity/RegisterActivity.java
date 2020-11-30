@@ -65,6 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             intent.setClass(this, HomeActivity.class);
                             //清除所有栈
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("username", username);
                             startActivity(intent);
                         }
                     }

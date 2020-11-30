@@ -24,8 +24,9 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity implements MyViewPager.onViewPagerTouchListener, ViewPager.OnPageChangeListener, View.OnClickListener {
     private static final String TAG = "HomeActivity";
     private MyViewPager mLoopPager;
-    private ImageView musicIv, userIv;
+    private ImageView musicIv, userIv, diantaiIv, paihangbangIv;
     private LooperPagerAdapter mLooperPagerAdapter;
+    private String userName = null;
     private static List<Integer> sPics = new ArrayList<>();
     private long exitTime;//第一次单机退出键的时间
     static{
@@ -82,6 +83,8 @@ public class HomeActivity extends AppCompatActivity implements MyViewPager.onVie
         mLoopPager = (MyViewPager) this.findViewById(R.id.looper_pager);
         musicIv = findViewById(R.id.home_user_musiclist);
         userIv = findViewById(R.id.home_user_center);
+        diantaiIv = findViewById(R.id.home_user_diantai);
+        paihangbangIv = findViewById(R.id.home_user_paihangbang);
         //设置适配器
         mLooperPagerAdapter = new LooperPagerAdapter();
         mLooperPagerAdapter.setData(sPics);
@@ -93,9 +96,14 @@ public class HomeActivity extends AppCompatActivity implements MyViewPager.onVie
         insertPoint();
         mLoopPager.setCurrentItem(mLooperPagerAdapter.getDataRealSize() * 100 ,false);
 
+        Intent intent = getIntent();
+        userName = intent.getStringExtra("username");
+        System.out.println("我是Home里边的username："+userName);
         //设置点击事件
         musicIv.setOnClickListener(this);
         userIv.setOnClickListener(this);
+        diantaiIv.setOnClickListener(this);
+        paihangbangIv.setOnClickListener(this);
         System.out.println("我是HomeActivity的onCreate方法");
 
     }
@@ -192,6 +200,7 @@ public class HomeActivity extends AppCompatActivity implements MyViewPager.onVie
                 break;
             case R.id.home_user_center:
                 intent.setClass(this, MySpaceActivity.class);
+                intent.putExtra("username", userName);
                 startActivity(intent);
                 break;
             case R.id.home_user_diantai:

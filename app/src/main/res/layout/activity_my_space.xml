@@ -52,6 +52,8 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:padding="5dp"
                 android:src="@mipmap/icon_mess" />
             <TextView
                 android:id="@+id/mess"
@@ -59,6 +61,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
                 android:textSize="25sp"
+                android:layout_centerVertical="true"
                 android:text="密码修改:"
                 android:layout_toRightOf="@id/icon_mess"
                 />
@@ -71,13 +74,15 @@
             android:layout_below="@id/medium_mess"
             android:layout_margin="5dp"
             android:hint="请输入新密码"
+            android:inputType="textPassword"
             android:textSize="20sp" />
 
         <EditText
             android:id="@+id/newpass1"
             android:layout_below="@id/newpass"
             android:layout_width="match_parent"
-            android:layout_margin="10dp"
+            android:inputType="textPassword"
+            android:layout_margin="5dp"
             android:layout_height="70dp"
             android:textSize="20sp"
             android:hint="请再次输入新密码"/>
