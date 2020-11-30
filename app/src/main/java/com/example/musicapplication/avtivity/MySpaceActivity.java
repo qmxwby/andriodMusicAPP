@@ -1,7 +1,12 @@
 package com.example.musicapplication.avtivity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -10,11 +15,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.musicapplication.R;
+import com.example.musicapplication.adapter.LocalMusicAdapter;
+import com.example.musicapplication.bean.LocalMusicBean;
+import com.example.musicapplication.utils.SearchFile;
+
+import java.util.ArrayList;
 
 public class MySpaceActivity extends AppCompatActivity implements View.OnClickListener {
     TextView loginTv;
     ImageView toLoginTv;
     String userName = null;  //记录用户名
+    TextView musicAl,musicLi;
+    RecyclerView musicAll,musicLike;
+    ArrayList<LocalMusicBean> mDatas;
+    private LocalMusicAdapter adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,19 +50,35 @@ public class MySpaceActivity extends AppCompatActivity implements View.OnClickLi
     private void initView() {
         loginTv = findViewById(R.id.textname);
         toLoginTv = findViewById(R.id.to_login);
+        musicAl = findViewById(R.id.text_music_all);
+        musicLi = findViewById(R.id.text_music_like);
+        mDatas = SearchFile.searchLocalMusic(this);
 
         loginTv.setOnClickListener(this);
+        musicAl.setOnClickListener(this);
+        musicLi.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        Fragment f= null ;
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.textname:
                 intent.setClass(this, LoginActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.text_music_all:
+                f = new AllMusicFragment();
+                break;
+            case R.id.text_music_like:
+                f = new LikeMusicFragment();
+                break;
         }
+        ft.replace(R.id.fragment, f);
+        ft.commit();
     }
 
 

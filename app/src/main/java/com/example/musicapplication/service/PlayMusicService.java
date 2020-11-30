@@ -54,13 +54,14 @@ public class PlayMusicService extends Service implements MediaPlayer.OnPreparedL
     //播放的循环方式
     public int recycleStyle(int recycle2){
         System.out.println(mediaPlayer.getDuration()+"!!!"+mediaPlayer.getCurrentPosition());
-        if(recycle2==0&&mediaPlayer.getDuration()<=mediaPlayer.getCurrentPosition()){
+        if(recycle2==0&&mediaPlayer.getDuration()<=mediaPlayer.getCurrentPosition()+1000){
+            System.out.println("进入跳转函数");
             if (currentPosition == musicList.size()-1) currentPosition = 0;
             else currentPosition++;
             playMusicInPosition(currentPosition);
             return mediaPlayer.getDuration();
         }
-        else if(recycle2==1&&mediaPlayer.getDuration()<=mediaPlayer.getCurrentPosition()){
+        else if(recycle2==1&&mediaPlayer.getDuration()<=mediaPlayer.getCurrentPosition()+1000){
             playMusicInPosition(currentPosition);
             return mediaPlayer.getDuration();
         }
