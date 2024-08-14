@@ -2,14 +2,30 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.musicapplication">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/wyy_logo02"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".avtivity.MySpaceActivity"
+            android:launchMode="singleInstance"/>
+        <activity android:name=".avtivity.LoginActivity" />
+        <activity android:name=".avtivity.HomeActivity"
+            android:alwaysRetainTaskState="true"
+            android:launchMode="singleTask"/>
+        <activity android:name=".avtivity.MusicMainActivity"
+            android:launchMode="singleInstance"/>
+        <activity android:name=".avtivity.RegisterActivity" />
+        <activity android:name=".avtivity.MusicPlay" />
+
+        <service android:name=".service.PlayMusicService" />
+
+        <activity android:name=".avtivity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

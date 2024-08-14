@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">MusicApplication</string>
+    <string name="app_name">网易云音乐</string>
+    <string name="need">    用户须知：本产品仅用于课程答辩，请勿用于商业等其他方面。其他功能修改完善中。</string>
+    <string name="introduction">    产品说明：喜欢的话记得关注点赞。本产品已有功能包括音乐后台播放，音乐列表，基本的进度条播放，用户登录注册等功能。其他功能静待后续更新。</string>
 </resources>
